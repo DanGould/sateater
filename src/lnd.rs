@@ -18,6 +18,30 @@ pub fn load_conf() -> (String, String, String, String) {
     (address, cert, macaroon, label)
 }
 
+pub async fn get_onchain_address() -> String {
+    let (address, cert, macaroon, _) = load_conf();
+    let mut client = tonic_lnd::connect_lightning(address, cert, macaroon)
+        .await
+        .expect("failed to connect");
+
+    let newaddressreq = tonic_lnd::lnrpc::NewAddressRequest {
+        r#type: 4, //taproot
+        ..Default::default()
+    };
+
+    let address = client
+        .new_address(newaddressreq)
+        .await
+        .expect(
+            "created invoice with lightning node using ssh tunnel!\n
+                 Run `ssh pi@your.node.ip -q -N -L 10009:localhost:10009`\n\n",
+            // Run `ssh -nNT -L ./lightning-rpc:/root/.lightning/bitcoin/lightning-rpc user@host`\n\n"
+        )
+        .into_inner();
+
+    address.address.to_string()
+}
+
 pub async fn create_invoice(amount: i64, description: String) -> AddInvoiceResponse {
     let (address, cert, macaroon, _) = load_conf();
     let mut client = tonic_lnd::connect_lightning(address, cert, macaroon)

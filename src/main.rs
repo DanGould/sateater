@@ -2,6 +2,8 @@
 extern crate rocket;
 
 pub mod cashu;
+pub mod email;
+pub mod inbound;
 pub mod lnd;
 pub mod wildcard;
 use std::sync::Mutex;
@@ -104,7 +106,8 @@ fn rocket() -> _ {
                 receive_ecash,
                 wildcard::wildcard,
                 board,
-                land
+                land,
+                inbound::getinbound
             ],
         )
         .manage(Mutex::new(BattleConfig {
