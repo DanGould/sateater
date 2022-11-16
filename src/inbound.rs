@@ -101,13 +101,13 @@ pub async fn getinbound(
         "
 [Channel Request]
 -------------------
-NodeID: {},
-Capacity: {},
-Duration: {},
-Payment Address: {},
-Refund Address: {},
+NodeID: {}
+Capacity: {}
+Duration: {}
+Payment Address: https://mempool.space/address/{}
+Refund Address: {}
 -------------------
-Cost: {},
+Cost: {}
         ",
         nodeid, capacity, duration, payment_address, refund_address, price
     );

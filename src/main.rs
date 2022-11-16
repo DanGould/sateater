@@ -87,7 +87,6 @@ pub async fn receive_ecash(token: String) -> (Status, Json<PaymentStatusResponse
     let amount_paid = cashu_receive(&token);
     let response = PaymentStatusResponse {
         payment_complete: amount_paid > 0,
-        // For later doing onchain
         confirmed_paid: amount_paid as u64,
         unconfirmed_paid: 0,
     };
