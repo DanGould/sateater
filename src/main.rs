@@ -106,7 +106,7 @@ fn rocket() -> _ {
                 wildcard::wildcard,
                 board,
                 land,
-                inbound::getquote
+                inbound::request_inbound
             ],
         )
         .manage(Mutex::new(BattleConfig {

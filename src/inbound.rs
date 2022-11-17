@@ -84,8 +84,8 @@ pub struct InboundResponse {
     address: String,
 }
 
-#[get("/getquote?<nodeid>&<capacity>&<duration>&<refund_address>")]
-pub async fn getquote(
+#[post("/request-inbound?<nodeid>&<capacity>&<duration>&<refund_address>")]
+pub async fn request_inbound(
     nodeid: String,
     capacity: u32,
     duration: u32,
